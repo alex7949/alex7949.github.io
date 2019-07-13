@@ -85,8 +85,10 @@
   function  start() {
       //呼叫 Graph API:FB.api(連線網址,回乎函式(結果));
   
-    FB.api('https://graph.facebook.com/2495831540484220', function(response) {
+    FB.api('/me', function(response) {
         console.log(response);
+        let main=document.querySelector("#main");
+        main.innerHTML=response.name;
     });
   }
 </script>
