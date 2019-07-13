@@ -85,11 +85,13 @@
   function  start() {
       //呼叫 Graph API:FB.api(連線網址,回乎函式(結果));
   
-    FB.api('/me', function(response) {
+    FB.api('/me?fields=id,name,email', function(response) {
         console.log(response);
         let main=document.querySelector("#main");
         main.innerHTML=response.name;
     });
+
+
   }
 </script>
 
