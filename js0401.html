@@ -89,9 +89,24 @@
      });
   }
   
+
+  function share(){
+
+      FB.ui({
+      method: 'share',
+      href: 'https://www.facebook.com/alexykke',
+      }, function(response){});
+
+  }
+  
+
 </script>
 
 <h3>Facebook Login</h3>
+
+<button onclick="share()">Share</button>
+
+
 <div id="welcome" style="display:none">
     <button onclick="login();">Facebook</button>
 </div>
