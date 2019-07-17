@@ -60,7 +60,7 @@
 
   function  start() {
       //呼叫 Graph API:FB.api(連線網址,回乎函式(結果));
-
+    /*
     FB.api('/me?fields=id,name,email,gender', function(response) {
         console.log(response);
         
@@ -68,16 +68,24 @@
       
         main.innerHTML=response.name+"<img scr='https://graph.facebook.com/"+response.id+"/picture?type=large' >";
     });
+    */
     // 抓使用者的塗鴉牆
     FB.api('/me/accounts',function(response){
       console.log(response);
       let pageToken=response.data[0].access_token;
       let pageId=response.data[0],id;
-      FB.api("/"+pageId+"/feed?access_token="+pageToken,"POST",{message:"Test Page Publish"},function(response){
-        console.log(response);
+      console.log(pageToken,pageId);
       });
-    });
+    }
 
+  
+
+  let pageToken,pageId;
+  function post(){
+    let message=document.querySelector('#message').value;
+    FB.api("/"+pageId+"/feed?access_token="+pageToken,"POST",{message:message},function(response){
+        console.log(response);
+        alert("OK");
   }
 </script>
 
@@ -87,6 +95,7 @@
 </div>
 
 <div id="main">
+    message <input id="message" /><button onclick="post()">POST</button>
     Hello Friend
 </div>
 
