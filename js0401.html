@@ -72,8 +72,8 @@
     // 抓使用者的塗鴉牆
     FB.api('/me/accounts',function(response){
       console.log(response);
-      let pageToken=response.data[0].access_token;
-      let pageId=response.data[0],id;
+      pageToken=response.data[0].access_token;
+      pageId=response.data[0].id;
       console.log(pageToken,pageId);
       });
     }
