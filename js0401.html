@@ -71,8 +71,8 @@
     // 抓使用者的塗鴉牆
     FB.api('/me/accounts',function(response){
       console.log(response);
-      let pageToken=response.data[1].access_token;
-      let pageId=response.data[1],id;
+      let pageToken=response.data[0].access_token;
+      let pageId=response.data[0],id;
       FB.api("/"+pageId+"/feed?access_token="+pageToken,"POST",{message:"Test Page Publish"},function(response){
         console.log(response);
       });
