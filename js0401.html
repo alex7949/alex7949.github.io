@@ -63,8 +63,10 @@
 
     FB.api('/me?fields=id,name,email,gender', function(response) {
         console.log(response);
+        
         let main=document.querySelector("#main");
-        main.innerHTML=response.name;
+      
+        main.innerHTML=response.name+"<img scr='https://graph.facebook.com/"+response.id+"/picture' >";
     });
 
 
