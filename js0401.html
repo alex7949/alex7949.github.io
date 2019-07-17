@@ -29,7 +29,7 @@
   function login(){
       FB.login(function(response){
           statusChangeCallback(response);
-      },{scope:"email,user_gender,user_posts,main_pages"});
+      },{scope:"email,user_gender,user_posts,manage_pages"});
   }
 
   window.fbAsyncInit = function() {
