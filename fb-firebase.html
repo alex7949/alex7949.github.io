@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <heml lang="en">    
+  <head>
+      <meta charset="utf-8">
+    <title>Facebook Firebase</title>
+    <script scr="<script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
+    <script scr="<script src="https://www.gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
+    <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+              apiKey: "AIzaSyDCauLuCIUVxdxcoM8_iR2gzrl0GeSADgM",
+              authDomain: "test0720-759ef.firebaseapp.com",
+              databaseURL: "https://test0720-759ef.firebaseio.com",
+              projectId: "test0720-759ef",
+              storageBucket: "",
+              messagingSenderId: "209251857002",
+              appId: "1:209251857002:web:f62db016230867b1"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            let provider = new firebase.auth.FacebookAuthProvider();
+            provider.addScope("email,user_birthday");
+            function login(){
+                firebase.auth().signInWithPopup(provider).then(function(result) {
+            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+            let token = result.credential.accessToken;
+            // The signed-in user info.
+            let user = result.user;
+            console.log(user);
+            // ...
+            }).catch(function(error) {
+             // Handle Errors here.
+             console.log(error);
+             /*
+             let errorCode = error.code;
+             let errorMessage = error.message;
+             // The email of the user's account used.
+             var email = error.email;
+             // The firebase.auth.AuthCredential type that was used.
+             var credential = error.credential;
+                // ...*/
+                });
+            }
+
+          </script>
+         </head>
+      <body>
+        <h3>Facebook Login</h3>
+        <button onclick="login();">Login</button>
+  </body>
+</html>
