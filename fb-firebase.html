@@ -19,6 +19,19 @@
             };
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
+            //確認使用者狀態
+            firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+             // User is signed in.
+                console.log("登入成功",user.email);
+            // ...
+                 } else {
+            // User is signed out.
+                    console.log("沒有登入");
+             // ...
+                }
+            });
+
             let provider = new firebase.auth.FacebookAuthProvider();
             provider.addScope("email,user_birthday");
             function login(){
@@ -42,7 +55,7 @@
                 // ...*/
                 });
             }
-
+    
           </script>
          </head>
       <body>
