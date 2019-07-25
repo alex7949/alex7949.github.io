@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Facebook Login 登入範例</title>
+<meta charset="UTF-8">
+</head>
+<body>
+<script>
+  // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
+    //console.log('statusChangeCallback');
+    console.log(response);
+    let Welcome=document.querySelector("#welcome");
+    let main=document.querySelector("#main");
+    Welcome.style.display="none";
+    main.style.display="none";
+ 
+    if (response.status === 'connected') { //使用者已授權,開始應用程式
+      main.style.display="block";
+      start();
+    } else { //使用者未授權,鼓勵使用者授權
+        'into this app.';
+        Welcome.style.display="block";
+    }
+  }
+  function login(){
+      FB.login(function(response){
+          statusChangeCallback(response);
+      },{scope:"email,user_gender,user_posts,manage_pages,publish_pages"});
+  }
+  window.fbAsyncInit = function() {
+      //初始化 Facebook 套件
+    FB.init({
+      appId      : '343015233059952',
+      cookie     : true,  // enable cookies to allow the server to access 
+                          // the session
+      xfbml      : true,  // parse social plugins on this page
+      version    : 'v3.3' // The Graph API version to use for the call
+    });
+    // 偵測使用者是否已經授權
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  };
+  //載入 Facebook JavaScript SDK，載入完畢後固定呼叫window.fbAsyncInit()
+  (function(d, s, id) { //匿名函式
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  function  start() {
+      //呼叫 Graph API:FB.api(連線網址,回乎函式(結果));
+    /*
+    FB.api('/me?fields=id,name,email,gender', function(response) {
+        console.log(response);
+        
+        let main=document.querySelector("#main");
+      
+        main.innerHTML=response.name+"<img scr='https://graph.facebook.com/"+response.id+"/picture?type=large' >";
+    });
+    */
+    // 抓使用者的塗鴉牆
+    FB.api('/me/accounts',function(response){
+      console.log(response);
+      pageToken=response.data[0].access_token;
+      pageId=response.data[0].id;
+      console.log(pageToken,pageId);
+      });
+    }
+  
+  let pageToken,pageId;
+  function post(){
+    let message=document.querySelector('#message').value;
+    FB.api("/"+pageId+"/feed?access_token="+pageToken,"POST",{message:message},function(response){
+        console.log(response);
+        alert("OK");
+     });
+  }
+  
+  function share(){
+      FB.ui({
+      method: 'share',
+      href: 'https://www.facebook.com/alexykke',
+      }, function(response){});
+  }
+  
+</script>
+
+<h3>Facebook Login</h3>
+
+<button onclick="share()">Share</button>
+
+
+<div id="welcome" style="display:none">
+    <button onclick="login();">Facebook</button>
+</div>
+
+<div id="main">
+    message <input id="message" /><button onclick="post()">POST</button>
+    Hello Friend
+</div>
+
+<!--
+  Below we include the Login Button social plugin. This button uses
+  the JavaScript SDK to present a graphical Login button that triggers
+  the FB.login() function when clicked.
+-->
+<!--
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+    </fb:login-button>
+<div id="status">
+</div>
+-->
+</body>
+</html>
+
+<!--
+    主網址(Host)
+    主網址/檔案名稱
+    https://alex7949.github.io/training/js0401.html
+    https://alex7949.github.io/js0401.html
+    https://alex7949.github.io/js0401.html?隨便給幾個字
+-->
